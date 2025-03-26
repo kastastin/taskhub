@@ -14,5 +14,11 @@ body,
 .app {
   width: 100%;
   height: 100%;
-  @apply text-sm bg-gray-500 text-gray-900;
+  @apply bg-gray-50 text-sm text-gray-900 dark:bg-dark-bg;
+}
+
+@layer utilities {
+  .search-input-cancel-icon::-webkit-search-cancel-button {
+    margin-left: 8px;
+  }
 }
