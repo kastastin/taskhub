@@ -1,0 +1,29 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bgGradient)" />
+  
+  <text x="10" y="50" font-family="'Oswald', sans-serif" font-size="48" fill="#fff" font-weight="700">
+    K
+  </text>
+  
+  <text x="190" y="50" font-family="'Oswald', sans-serif" font-size="48" fill="#fff" font-weight="700" text-anchor="end">
+    S
+  </text>
+  
+  <text x="10" y="190" font-family="'Oswald', sans-serif" font-size="48" fill="#fff" font-weight="700" alignment-baseline="bottom">
+    T
+  </text>
+  
+  <text x="190" y="190" font-family="'Oswald', sans-serif" font-size="48" fill="#fff" font-weight="700" text-anchor="end" alignment-baseline="bottom">
+    N
+  </text>
+  
+  <text x="50%" y="50%" font-family="'Oswald', sans-serif" font-size="28" fill="#fff" font-weight="700" text-anchor="middle" alignment-baseline="middle">
+    TEAM
+  </text>
+</svg>
