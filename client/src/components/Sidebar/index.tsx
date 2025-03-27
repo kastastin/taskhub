@@ -4,8 +4,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { X, LockIcon } from "lucide-react";
 
+import { setIsSidebarOpen } from "@/state";
+import { useAppDispatch, useAppSelector } from "@/app/redux";
+
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const dispatch = useAppDispatch();
+  const isSidebarOpen = useAppSelector((state) => state.global.isSidebarOpen);
+
   const [isProjectDropdownVisible, setIsProjectDropdownVisible] = useState(true);
   const [isPriorityDropdownVisible, setIsPriorityDropdownVisible] = useState(true);
 
@@ -23,7 +28,11 @@ const Sidebar = () => {
           <h1 className="text-xl font-bold text-gray-800 dark:text-white">TaskHub</h1>
 
           {isSidebarOpen && (
-            <button>
+            <button
+              onClick={() => {
+                dispatch(setIsSidebarOpen(!isSidebarOpen));
+              }}
+            >
               <X className="size-6 text-gray-800 hover:text-gray-500 dark:text-white" />
             </button>
           )}
