@@ -1,18 +1,34 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { X, LockIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { setIsSidebarOpen } from "@/state";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
+
+import { projects, sidebarLinks, priorities } from "@/constants";
+
+import Dropdown from "@/components/Dropdown";
+import SidebarLink from "@/components/SidebarLink";
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
   const isSidebarOpen = useAppSelector((state) => state.global.isSidebarOpen);
 
-  const [isProjectDropdownVisible, setIsProjectDropdownVisible] = useState(true);
-  const [isPriorityDropdownVisible, setIsPriorityDropdownVisible] = useState(true);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
+  const [isPriorityDropdownOpen, setIsPriorityDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isSidebarOpen) {
+        dispatch(setIsSidebarOpen(false));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSidebarOpen, dispatch]);
 
   const sidebarClassNames = `
     fixed z-50 flex h-full flex-col justify-between
@@ -28,11 +44,7 @@ const Sidebar = () => {
           <h1 className="text-xl font-bold text-gray-800 dark:text-white">TaskHub</h1>
 
           {isSidebarOpen && (
-            <button
-              onClick={() => {
-                dispatch(setIsSidebarOpen(!isSidebarOpen));
-              }}
-            >
+            <button onClick={() => dispatch(setIsSidebarOpen(!isSidebarOpen))}>
               <X className="size-6 text-gray-800 hover:text-gray-500 dark:text-white" />
             </button>
           )}
@@ -40,7 +52,7 @@ const Sidebar = () => {
 
         {/* Team */}
         <div className="flex items-center gap-5 border-y-[1.5px] border-gray-200 px-8 py-4 dark:border-gray-700">
-          <Image src="/kstn_team_logo.svg" alt="Team logo" width={40} height={40} />
+          <Image src="/kstn_team_logo.svg" alt="Team logo" width={40} height={40} priority />
 
           <div>
             <h3 className="text-md font-bold tracking-wide dark:text-gray-200">KSTN Team</h3>
@@ -50,6 +62,27 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+
+        {/* Navigation Links */}
+        <nav className="z-10 w-full">
+          {sidebarLinks.map((link) => (
+            <SidebarLink key={link.id} icon={link.icon} label={link.label} href={link.href} />
+          ))}
+        </nav>
+
+        <Dropdown
+          label="projects"
+          listItems={projects}
+          isOpen={isProjectDropdownOpen}
+          setIsOpen={setIsProjectDropdownOpen}
+        />
+
+        <Dropdown
+          label="priority"
+          listItems={priorities}
+          isOpen={isPriorityDropdownOpen}
+          setIsOpen={setIsPriorityDropdownOpen}
+        />
       </div>
     </aside>
   );
