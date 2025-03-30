@@ -5,6 +5,9 @@ import morgan from "morgan";
 import express from "express";
 import bodyParser from "body-parser";
 
+import projectRoutes from "./routes/projectRoutes";
+import taskRoutes from "./routes/taskRoutes";
+
 // <-- Configurations -->
 dotenv.config();
 const app = express();
@@ -20,6 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.send("Home route: /");
 });
+
+app.use("/projects", projectRoutes);
+app.use("/tasks", taskRoutes);
 
 // <-- Server -->
 const port = process.env.PORT || 3000;
