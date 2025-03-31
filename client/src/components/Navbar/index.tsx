@@ -12,7 +12,7 @@ const Navbar = () => {
   const iconClassNames = "size-6 cursor-pointer dark:text-white";
 
   return (
-    <header className="flex items-center justify-between bg-white px-4 py-3 shadow-md dark:bg-black">
+    <header className="flex items-center justify-between bg-white px-4 py-3 shadow-md dark:border-b dark:border-gray-700 dark:bg-black">
       {/* Searchbar */}
       <div className="flex items-center gap-8">
         {!isSidebarOpen && (

@@ -5,3 +5,10 @@ export type ProjectType = {
   startDate?: string;
   endDate?: string;
 };
+
+export enum ProjectTabs {
+  Board = "Board",
+  List = "List",
+  Timeline = "Timeline",
+  Table = "Table",
+}

@@ -20,5 +20,6 @@ body,
 @layer utilities {
   .search-input-cancel-icon::-webkit-search-cancel-button {
     margin-left: 8px;
+    cursor: pointer;
   }
 }

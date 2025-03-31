@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createProject = exports.getProjects = void 0;
+exports.createProject = exports.getProjectById = exports.getProjects = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -24,6 +24,25 @@ const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getProjects = getProjects;
+const getProjectById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const project = yield prisma.project.findUnique({
+            where: { id: Number(id) },
+        });
+        if (!project) {
+            res.status(404).json({ message: `Project with id ${id} not found` });
+            return;
+        }
+        res.json(project);
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ message: `Error retrieving project: ${error.message}` });
+    }
+});
+exports.getProjectById = getProjectById;
 const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, description, startDate, endDate } = req.body;
     try {

@@ -6,7 +6,7 @@ import type { SidebarLinkType } from "@/types";
 
 type Props = {
   label: string;
-  listItems: SidebarLinkType[];
+  listItems: SidebarLinkType[] | undefined;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };

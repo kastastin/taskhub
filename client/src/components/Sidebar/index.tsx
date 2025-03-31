@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { X, LockIcon } from "lucide-react";
+import { X, LockIcon, FolderGit } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { setIsSidebarOpen } from "@/state";
+import { useGetProjectsQuery } from "@/state/api";
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 
-import { projects, sidebarLinks, priorities } from "@/constants";
+import { sidebarLinks, priorities } from "@/constants";
 
 import Dropdown from "@/components/Dropdown";
 import SidebarLink from "@/components/SidebarLink";
@@ -18,6 +19,14 @@ const Sidebar = () => {
 
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
   const [isPriorityDropdownOpen, setIsPriorityDropdownOpen] = useState(false);
+
+  const { data: fetchedProjects } = useGetProjectsQuery();
+  const projectDropdownItems = fetchedProjects?.map(({ id, name }) => ({
+    id,
+    icon: FolderGit,
+    label: name,
+    href: `/projects/${id}`,
+  }));
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -72,7 +81,7 @@ const Sidebar = () => {
 
         <Dropdown
           label="projects"
-          listItems={projects}
+          listItems={projectDropdownItems}
           isOpen={isProjectDropdownOpen}
           setIsOpen={setIsProjectDropdownOpen}
         />

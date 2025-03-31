@@ -13,6 +13,11 @@ export const api = createApi({
       providesTags: ["Projects"],
     }),
 
+    getProjectById: build.query<ProjectType, number>({
+      query: (id) => `projects/${id}`,
+      providesTags: (result, error, id) => [{ type: "Projects", id }],
+    }),
+
     createProjects: build.mutation<ProjectType, Partial<ProjectType>>({
       query: (project) => ({
         url: "projects",
@@ -51,6 +56,7 @@ export const api = createApi({
 
 export const {
   useGetProjectsQuery,
+  useGetProjectByIdQuery,
   useCreateProjectsMutation,
   useGetTasksQuery,
   useCreateTaskMutation,
